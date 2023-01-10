@@ -27,6 +27,8 @@ namespace LibrarySystem23
             //        return;
             //    }
             //}
+            if (aMedia.Year < 2010)
+                throw new ArgumentException("Det er ikke muligt at tilføje Medier før 2010");
             if (GetMedia(aMedia.MediaId) == null)
                 _mediaList.Add(aMedia);
         }
@@ -61,7 +63,27 @@ namespace LibrarySystem23
 
         public override string ToString()
         {
-            return base.ToString();
+            string returnString = "";
+            foreach (Media media in _mediaList)
+            {
+                returnString = returnString + media.ToString()+ "\n";
+            }
+            return returnString;
+        }
+
+        public List<Media> GetMediaByAuthor(string author)
+        {
+            List<Media> returnList = new List<Media>();
+            foreach (Media aMedia in _mediaList)
+            {
+                if (aMedia.Author!= null && aMedia.Author == author)
+                        returnList.Add(aMedia);               
+            
+            }
+            if (returnList.Count > 0)
+                return returnList;
+            else
+                return null;
         }
     }
 }
